@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Music } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import StreamingModal from "./StreamingModal";
 
 const NewSongAlert = () => {
   const [visible, setVisible] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (!visible) return null;
 
@@ -30,7 +32,7 @@ const NewSongAlert = () => {
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={() => navigate("/17")}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-foreground text-primary text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity rounded-sm"
               >
                 Listen
