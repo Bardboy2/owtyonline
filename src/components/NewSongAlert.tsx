@@ -22,7 +22,7 @@ const NewSongAlert = () => {
               <Music className="w-3.5 h-3.5" />
             </span>
             <p className="text-sm font-medium truncate">
-              🔥 New single <span className="font-bold">"Aura"</span> is out now!
+              🔥 New single <span className="font-bold">"17"</span> is out now!
             </p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
