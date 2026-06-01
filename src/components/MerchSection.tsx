@@ -2,14 +2,15 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import merchCapImg from "@/assets/merch-cap.jpg";
 
 const products = [
-  { id: 1, name: "OWTY Cap", price: 35, image: "🧢", description: "Structured snapback with embroidered OWTY logo" },
-  { id: 2, name: "OWTY Bag", price: 55, image: "🎒", description: "Heavy-duty canvas tote with woven OWTY patch" },
-  { id: 3, name: "OWTY Shirt", price: 45, image: "👕", description: "Oversized heavyweight tee with front & back print" },
-  { id: 4, name: "OWTY Jeans", price: 120, image: "👖", description: "Relaxed fit denim with custom OWTY embroidery" },
-  { id: 5, name: "OWTY Hoodie", price: 85, image: "🧥", description: "Premium fleece hoodie with puff print logo" },
-  { id: 6, name: "OWTY Beanie", price: 28, image: "🎩", description: "Ribbed knit beanie with woven label" },
+  { id: 1, name: "OWTY Cap", price: 35, image: "🧢", photo: merchCapImg, description: "Structured snapback with embroidered OWTY logo" },
+  { id: 2, name: "OWTY Bag", price: 55, image: "🎒", photo: null, description: "Heavy-duty canvas tote with woven OWTY patch" },
+  { id: 3, name: "OWTY Shirt", price: 45, image: "👕", photo: null, description: "Oversized heavyweight tee with front & back print" },
+  { id: 4, name: "OWTY Jeans", price: 120, image: "👖", photo: null, description: "Relaxed fit denim with custom OWTY embroidery" },
+  { id: 5, name: "OWTY Hoodie", price: 85, image: "🧥", photo: null, description: "Premium fleece hoodie with puff print logo" },
+  { id: 6, name: "OWTY Beanie", price: 28, image: "🎩", photo: null, description: "Ribbed knit beanie with woven label" },
 ];
 
 const MerchSection = () => {
@@ -49,9 +50,17 @@ const MerchSection = () => {
               className="group border border-border bg-card/50 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/50"
             >
               <div className="relative h-48 flex items-center justify-center bg-secondary/50 overflow-hidden">
-                <span className="text-7xl transition-transform duration-500 group-hover:scale-110">
-                  {product.image}
-                </span>
+                {product.photo ? (
+                  <img
+                    src={product.photo}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <span className="text-7xl transition-transform duration-500 group-hover:scale-110">
+                    {product.image}
+                  </span>
+                )}
                 {hoveredId === product.id && (
                   <motion.div
                     initial={{ opacity: 0 }}
