@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 
 const socials = [
-  { name: "Instagram", handle: "@owty", url: "https://instagram.com/owty", icon: "IG" },
-  { name: "X (Twitter)", handle: "@owty", url: "https://x.com/owty", icon: "X" },
-  { name: "TikTok", handle: "@owty", url: "https://tiktok.com/@owty", icon: "TT" },
-  { name: "YouTube", handle: "OWTY Official", url: "https://youtube.com/@owty", icon: "YT" },
-  { name: "Spotify", handle: "OWTY", url: "https://open.spotify.com/artist/owty", icon: "SP" },
-  { name: "Apple Music", handle: "OWTY", url: "https://music.apple.com/artist/owty", icon: "AM" },
+  { name: "Instagram", handle: "@owtyszn", url: "https://www.instagram.com/owtyszn", icon: "IG" },
+  { name: "X (Twitter)", handle: "@owtyonline", url: "https://www.x.com/owtyonline", icon: "X" },
+  { name: "TikTok", handle: "@owtyofficial", url: "https://www.tiktok.com/@owtyofficial", icon: "TT" },
+  { name: "YouTube", handle: "@owtyofficial", url: "https://www.youtube.com/@owtyofficial", icon: "YT" },
+  { name: "Spotify", handle: "OWTY", url: "https://open.spotify.com/artist/3QS7P0sd61l5nTNAWWNg25?si=FRK49uuDQ6qazmcYzk6jsg", icon: "SP" },
+  { name: "Apple Music", handle: "OWTY", url: "https://music.apple.com/us/artist/owty/6772721995", icon: "AM" },
 ];
 
 const SocialSection = () => {
