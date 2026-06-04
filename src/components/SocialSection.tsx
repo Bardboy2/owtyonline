@@ -7,6 +7,7 @@ const socials = [
   { name: "YouTube", handle: "@owtyofficial", url: "https://www.youtube.com/@owtyofficial", icon: "YT" },
   { name: "Spotify", handle: "OWTY", url: "https://open.spotify.com/artist/3QS7P0sd61l5nTNAWWNg25?si=FRK49uuDQ6qazmcYzk6jsg", icon: "SP" },
   { name: "Apple Music", handle: "OWTY", url: "https://music.apple.com/us/artist/owty/6772721995", icon: "AM" },
+  { name: "Kick", handle: "@owtyofficial", url: "https://kick.com/owtyofficial", icon: "KK" },
 ];
 
 const SocialSection = () => {
