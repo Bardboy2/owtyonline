@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const socials = [
-  { name: "Instagram", handle: "@owtyszn", url: "https://www.instagram.com/owtyszn", icon: "IG" },
+  { name: "Instagram", handle: "@owtygram", url: "https://www.instagram.com/owtygram", icon: "IG" },
   { name: "X (Twitter)", handle: "@owtyszn", url: "https://www.x.com/owtyszn", icon: "X" },
   { name: "TikTok", handle: "@owtyofficial", url: "https://www.tiktok.com/@owtyofficial", icon: "TT" },
   { name: "YouTube", handle: "@owtyofficial", url: "https://www.youtube.com/@owtyofficial", icon: "YT" },
