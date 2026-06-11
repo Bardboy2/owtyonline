@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 import merchCapImg from "@/assets/merch-cap.jpg";
 
 const products = [
@@ -15,11 +16,19 @@ const products = [
 
 const MerchSection = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const { addItem } = useCart();
 
-  const handleAddToCart = (name: string) => {
+  const handleAddToCart = (product: typeof products[number]) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      photo: product.photo,
+    });
     toast({
       title: "Added to cart",
-      description: `${name} has been added to your cart.`,
+      description: `${product.name} has been added to your cart.`,
     });
   };
 
@@ -79,7 +88,7 @@ const MerchSection = () => {
                 </div>
                 <p className="text-muted-foreground text-sm mb-4">{product.description}</p>
                 <button
-                  onClick={() => handleAddToCart(product.name)}
+                  onClick={() => handleAddToCart(product)}
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground font-semibold uppercase tracking-wider text-xs hover:bg-primary/80 transition-colors"
                 >
                   <ShoppingBag className="w-4 h-4" />
