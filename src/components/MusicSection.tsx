@@ -8,9 +8,11 @@ import coverKamikaze from "@/assets/cover-kamikaze.jpg";
 import coverJjc from "@/assets/cover-jjc.jpg";
 import coverSeh from "@/assets/cover-seh.jpg";
 import cover17 from "@/assets/cover-17.jpg";
+import coverRoan from "@/assets/cover-roan.jpg";
 import StreamingModal from "./StreamingModal";
 
 const tracks = [
+  { title: "Request of a Nigga", album: "Single", year: "2026", link: "https://open.spotify.com/album/4SmHJ0gX37z3PuIcKwRGoo?si=CaKKvR6ISmy-0Lv7KDziCw", cover: coverRoan, modal: false },
   { title: "17", album: "Single", year: "2025", link: null, cover: cover17, modal: true },
   { title: "Aura", album: "Single", year: "2025", link: "https://fanlink.tv/aura2", cover: null, modal: false },
   { title: "SEH!", album: "Single", year: "2025", link: "https://fanlink.tv/SEH", cover: coverSeh, modal: false },

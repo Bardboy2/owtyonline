@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface CartDrawerProps {
@@ -11,12 +12,36 @@ interface CartDrawerProps {
 
 const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const { items, removeItem, increaseQty, decreaseQty, clearCart, totalPrice } = useCart();
+  const [loading, setLoading] = useState(false);
 
-  const handleCheckout = () => {
-    toast({
-      title: "Checkout coming soon",
-      description: "Online checkout isn't set up yet — stay tuned!",
-    });
+  const handleCheckout = async () => {
+    if (items.length === 0 || loading) return;
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map(({ name, price, quantity }) => ({ name, price, quantity })),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Failed to start checkout");
+      }
+
+      window.location.href = data.url;
+    } catch (err) {
+      toast({
+        title: "Checkout failed",
+        description: err instanceof Error ? err.message : "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,8 +105,14 @@ const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
                 <span>Total</span>
                 <span className="text-primary">${totalPrice.toFixed(2)}</span>
               </div>
-              <Button onClick={handleCheckout} className="w-full uppercase tracking-wider font-semibold">
-                Checkout
+              <Button onClick={handleCheckout} disabled={loading} className="w-full uppercase tracking-wider font-semibold">
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Redirecting...
+                  </>
+                ) : (
+                  "Checkout"
+                )}
               </Button>
               <button
                 onClick={clearCart}
