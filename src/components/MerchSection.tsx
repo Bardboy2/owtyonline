@@ -6,9 +6,9 @@ import { useCart } from "@/contexts/CartContext";
 import merchCapImg from "@/assets/merch-cap.jpg";
 
 const products = [
-  { id: 1, name: "OWTY Cap", price: 35, image: "🧢", photo: merchCapImg, description: "Structured snapback with embroidered OWTY logo" },
+  { id: 1, name: "OWTY Cap", price: 32, image: "🧢", photo: merchCapImg, description: "Structured snapback with embroidered OWTY logo" },
   { id: 2, name: "OWTY Bag", price: 55, image: "🎒", photo: null, description: "Heavy-duty canvas tote with woven OWTY patch" },
-  { id: 3, name: "OWTY Shirt", price: 45, image: "👕", photo: null, description: "Oversized heavyweight tee with front & back print" },
+  { id: 3, name: "OWTY Shirt", price: 37, image: "👕", photo: null, description: "Oversized heavyweight tee with front & back print" },
   { id: 4, name: "OWTY Jeans", price: 120, image: "👖", photo: null, description: "Relaxed fit denim with custom OWTY embroidery" },
   { id: 5, name: "OWTY Hoodie", price: 85, image: "🧥", photo: null, description: "Premium fleece hoodie with puff print logo" },
   { id: 6, name: "OWTY Beanie", price: 28, image: "🎩", photo: null, description: "Ribbed knit beanie with woven label" },
