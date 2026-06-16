@@ -10,6 +10,8 @@ import shirtBlackFront from "@/assets/shirt-black-front.jpg";
 import shirtBlackBack from "@/assets/shirt-black-back.jpg";
 import shirtStoneFront from "@/assets/shirt-stone-front.jpg";
 import shirtStoneBack from "@/assets/shirt-stone-back.jpg";
+import capFront from "@/assets/cap-front.jpg";
+import capBack from "@/assets/cap-back.jpg";
 
 const products = [
   {
@@ -17,8 +19,8 @@ const products = [
     name: "OWTY Cap",
     price: 32,
     image: "🧢",
-    photo: merchCapImg,
-    photos: null,
+    photo: null,
+    photos: { front: capFront, back: capBack },
     description: "Structured snapback with embroidered OWTY logo",
   },
   {
