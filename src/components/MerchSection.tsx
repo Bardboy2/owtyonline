@@ -4,21 +4,94 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useCart } from "@/contexts/CartContext";
 import merchCapImg from "@/assets/merch-cap.jpg";
+import shirtWhiteFront from "@/assets/shirt-white-front.jpg";
+import shirtWhiteBack from "@/assets/shirt-white-back.jpg";
+import shirtBlackFront from "@/assets/shirt-black-front.jpg";
+import shirtBlackBack from "@/assets/shirt-black-back.jpg";
+import shirtStoneFront from "@/assets/shirt-stone-front.jpg";
+import shirtStoneBack from "@/assets/shirt-stone-back.jpg";
 
 const products = [
-  { id: 1, name: "OWTY Cap", price: 32, image: "🧢", photo: merchCapImg, description: "Structured snapback with embroidered OWTY logo" },
-  { id: 2, name: "OWTY Bag", price: 55, image: "🎒", photo: null, description: "Heavy-duty canvas tote with woven OWTY patch" },
-  { id: 3, name: "OWTY Shirt", price: 37, image: "👕", photo: null, description: "Oversized heavyweight tee with front & back print" },
-  { id: 4, name: "OWTY Jeans", price: 120, image: "👖", photo: null, description: "Relaxed fit denim with custom OWTY embroidery" },
-  { id: 5, name: "OWTY Hoodie", price: 85, image: "🧥", photo: null, description: "Premium fleece hoodie with puff print logo" },
-  { id: 6, name: "OWTY Beanie", price: 28, image: "🎩", photo: null, description: "Ribbed knit beanie with woven label" },
+  {
+    id: 1,
+    name: "OWTY Cap",
+    price: 32,
+    image: "🧢",
+    photo: merchCapImg,
+    photos: null,
+    description: "Structured snapback with embroidered OWTY logo",
+  },
+  {
+    id: 2,
+    name: "OWTY Bag",
+    price: 55,
+    image: "🎒",
+    photo: null,
+    photos: null,
+    description: "Heavy-duty canvas tote with woven OWTY patch",
+  },
+  {
+    id: 3,
+    name: "OWTY Shirt — White",
+    price: 37,
+    image: "👕",
+    photo: null,
+    photos: { front: shirtWhiteFront, back: shirtWhiteBack },
+    description: "Oversized heavyweight tee with front & back print",
+  },
+  {
+    id: 4,
+    name: "OWTY Shirt — Black",
+    price: 37,
+    image: "👕",
+    photo: null,
+    photos: { front: shirtBlackFront, back: shirtBlackBack },
+    description: "Oversized heavyweight tee with front & back print",
+  },
+  {
+    id: 5,
+    name: "OWTY Shirt — Stonewash Black",
+    price: 37,
+    image: "👕",
+    photo: null,
+    photos: { front: shirtStoneFront, back: shirtStoneBack },
+    description: "Oversized heavyweight tee with front & back print",
+  },
+  {
+    id: 6,
+    name: "OWTY Jeans",
+    price: 120,
+    image: "👖",
+    photo: null,
+    photos: null,
+    description: "Relaxed fit denim with custom OWTY embroidery",
+  },
+  {
+    id: 7,
+    name: "OWTY Hoodie",
+    price: 85,
+    image: "🧥",
+    photo: null,
+    photos: null,
+    description: "Premium fleece hoodie with puff print logo",
+  },
+  {
+    id: 8,
+    name: "OWTY Beanie",
+    price: 28,
+    image: "🎩",
+    photo: null,
+    photos: null,
+    description: "Ribbed knit beanie with woven label",
+  },
 ];
 
 const MerchSection = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [flippedId, setFlippedId] = useState<number | null>(null); // mobile tap
   const { addItem } = useCart();
 
-  const handleAddToCart = (product: typeof products[number]) => {
+  const handleAddToCart = (product: (typeof products)[number]) => {
     addItem({
       id: product.id,
       name: product.name,
@@ -31,6 +104,8 @@ const MerchSection = () => {
       description: `${product.name} has been added to your cart.`,
     });
   };
+
+  const isFlipped = (id: number) => hoveredId === id || flippedId === id;
 
   return (
     <section id="merch" className="py-24 px-4 md:px-8 relative noise-bg">
@@ -56,10 +131,41 @@ const MerchSection = () => {
               transition={{ delay: i * 0.1 }}
               onMouseEnter={() => setHoveredId(product.id)}
               onMouseLeave={() => setHoveredId(null)}
+              onClick={() => {
+                if (product.photos) {
+                  setFlippedId(flippedId === product.id ? null : product.id);
+                }
+              }}
               className="group border border-border bg-card/50 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/50"
             >
-              <div className="relative h-48 flex items-center justify-center bg-secondary/50 overflow-hidden">
-                {product.photo ? (
+              {/* Image area */}
+              <div className="relative h-64 flex items-center justify-center bg-secondary/50 overflow-hidden">
+                {product.photos ? (
+                  <>
+                    {/* Front image */}
+                    <img
+                      src={product.photos.front}
+                      alt={`${product.name} front`}
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+                      style={{ opacity: isFlipped(product.id) ? 0 : 1 }}
+                    />
+                    {/* Back image */}
+                    <img
+                      src={product.photos.back}
+                      alt={`${product.name} back`}
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+                      style={{ opacity: isFlipped(product.id) ? 1 : 0 }}
+                    />
+                    {/* Front / Back label */}
+                    <span className="absolute bottom-2 right-3 text-[10px] uppercase tracking-widest text-white/60 font-medium pointer-events-none select-none">
+                      {isFlipped(product.id) ? "Back" : "Front"}
+                    </span>
+                    {/* Mobile hint */}
+                    <span className="absolute bottom-2 left-3 text-[10px] uppercase tracking-widest text-white/40 font-medium pointer-events-none select-none md:hidden">
+                      Tap to flip
+                    </span>
+                  </>
+                ) : product.photo ? (
                   <img
                     src={product.photo}
                     alt={product.name}
@@ -70,7 +176,8 @@ const MerchSection = () => {
                     {product.image}
                   </span>
                 )}
-                {hoveredId === product.id && (
+
+                {hoveredId === product.id && !product.photos && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -88,7 +195,10 @@ const MerchSection = () => {
                 </div>
                 <p className="text-muted-foreground text-sm mb-4">{product.description}</p>
                 <button
-                  onClick={() => handleAddToCart(product)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(product);
+                  }}
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground font-semibold uppercase tracking-wider text-xs hover:bg-primary/80 transition-colors"
                 >
                   <ShoppingBag className="w-4 h-4" />
