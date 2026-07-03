@@ -136,13 +136,18 @@ const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
               </div>
 
               {/* Email input for Paystack */}
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="w-full px-3 py-2 text-sm bg-secondary/50 border border-border rounded focus:outline-none focus:border-primary transition-colors"
-              />
+              <div>
+                <label className="block text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                  Email address <span className="text-primary">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="w-full px-3 py-2.5 text-sm bg-background border-2 border-primary/40 rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                />
+              </div>
 
               <Button
                 onClick={handleCheckout}
