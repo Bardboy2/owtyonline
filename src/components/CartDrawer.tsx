@@ -4,6 +4,12 @@ import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { usePaystackPayment } from "react-paystack";
+import { useNavigate } from "react-router-dom";
+
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY ?? "";
+// Conversion rate: 1 USD → NGN (update as needed)
+const USD_TO_NGN = Number(import.meta.env.VITE_USD_TO_NGN ?? 1600);
 
 interface CartDrawerProps {
   open: boolean;
@@ -12,37 +18,57 @@ interface CartDrawerProps {
 
 const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const { items, removeItem, increaseQty, decreaseQty, clearCart, totalPrice } = useCart();
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCheckout = async () => {
+  // Amount in kobo (NGN × 100)
+  const amountKobo = Math.round(totalPrice * USD_TO_NGN * 100);
+
+  const initializePayment = usePaystackPayment({
+    publicKey: PAYSTACK_PUBLIC_KEY,
+    email,
+    amount: amountKobo,
+    currency: "NGN",
+    label: "OWTY Store",
+    metadata: {
+      custom_fields: items.map((item) => ({
+        display_name: item.name,
+        variable_name: item.name.toLowerCase().replace(/\s+/g, "_"),
+        value: `x${item.quantity}`,
+      })),
+    },
+  });
+
+  const handleCheckout = () => {
     if (items.length === 0 || loading) return;
-    setLoading(true);
 
-    try {
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: items.map(({ name, price, quantity }) => ({ name, price, quantity })),
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.url) {
-        throw new Error(data.error || "Failed to start checkout");
-      }
-
-      window.location.href = data.url;
-    } catch (err) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       toast({
-        title: "Checkout failed",
-        description: err instanceof Error ? err.message : "Something went wrong. Please try again.",
+        title: "Email required",
+        description: "Please enter a valid email address to continue.",
         variant: "destructive",
       });
-      setLoading(false);
+      return;
     }
+
+    setLoading(true);
+
+    initializePayment({
+      onSuccess: () => {
+        clearCart();
+        setEmail("");
+        setLoading(false);
+        onOpenChange(false);
+        navigate("/checkout/success");
+      },
+      onClose: () => {
+        setLoading(false);
+      },
+    });
   };
+
+  const ngnTotal = (totalPrice * USD_TO_NGN).toLocaleString("en-NG");
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -103,12 +129,29 @@ const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
             <div className="border-t border-border pt-4 mt-4 space-y-3">
               <div className="flex items-center justify-between text-lg font-bold">
                 <span>Total</span>
-                <span className="text-primary">${totalPrice.toFixed(2)}</span>
+                <div className="text-right">
+                  <span className="text-primary">₦{ngnTotal}</span>
+                  <p className="text-xs text-muted-foreground font-normal">(~${totalPrice.toFixed(2)})</p>
+                </div>
               </div>
-              <Button onClick={handleCheckout} disabled={loading} className="w-full uppercase tracking-wider font-semibold">
+
+              {/* Email input for Paystack */}
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full px-3 py-2 text-sm bg-secondary/50 border border-border rounded focus:outline-none focus:border-primary transition-colors"
+              />
+
+              <Button
+                onClick={handleCheckout}
+                disabled={loading || !email}
+                className="w-full uppercase tracking-wider font-semibold"
+              >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Redirecting...
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...
                   </>
                 ) : (
                   "Checkout"
