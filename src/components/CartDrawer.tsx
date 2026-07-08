@@ -6,9 +6,9 @@ import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { usePaystackPayment } from "react-paystack";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY ?? "";
-// Conversion rate: 1 USD → NGN (update as needed)
 const USD_TO_NGN = Number(import.meta.env.VITE_USD_TO_NGN ?? 1600);
 
 interface CartDrawerProps {
@@ -16,48 +16,71 @@ interface CartDrawerProps {
   onOpenChange: (open: boolean) => void;
 }
 
+interface CustomerInfo {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   const { items, removeItem, increaseQty, decreaseQty, clearCart, totalPrice } = useCart();
-  const [email, setEmail] = useState("");
+  const [customer, setCustomer] = useState<CustomerInfo>({ name: "", email: "", phone: "", address: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Amount in kobo (NGN × 100)
   const amountKobo = Math.round(totalPrice * USD_TO_NGN * 100);
 
   const initializePayment = usePaystackPayment({
     publicKey: PAYSTACK_PUBLIC_KEY,
-    email,
+    email: customer.email,
     amount: amountKobo,
     currency: "NGN",
     label: "OWTY Store",
     metadata: {
-      custom_fields: items.map((item) => ({
-        display_name: item.name,
-        variable_name: item.name.toLowerCase().replace(/\s+/g, "_"),
-        value: `x${item.quantity}`,
-      })),
+      custom_fields: [
+        { display_name: "Name", variable_name: "name", value: customer.name },
+        { display_name: "Phone", variable_name: "phone", value: customer.phone },
+        { display_name: "Delivery Address", variable_name: "address", value: customer.address },
+        ...items.map((item) => ({
+          display_name: item.name,
+          variable_name: item.name.toLowerCase().replace(/\s+/g, "_"),
+          value: `x${item.quantity}`,
+        })),
+      ],
     },
   });
+
+  const field = (key: keyof CustomerInfo) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setCustomer((prev) => ({ ...prev, [key]: e.target.value }));
 
   const handleCheckout = () => {
     if (items.length === 0 || loading) return;
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      toast({
-        title: "Email required",
-        description: "Please enter a valid email address to continue.",
-        variant: "destructive",
-      });
-      return;
-    }
+    const { name, email, phone, address } = customer;
+
+    if (!name.trim()) return toast({ title: "Name required", variant: "destructive" });
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      return toast({ title: "Valid email required", variant: "destructive" });
+    if (!phone.trim()) return toast({ title: "Phone number required", variant: "destructive" });
+    if (!address.trim()) return toast({ title: "Delivery address required", variant: "destructive" });
 
     setLoading(true);
 
     initializePayment({
-      onSuccess: () => {
+      onSuccess: async (response: any) => {
+        await supabase.from("orders").insert({
+          name,
+          email,
+          phone,
+          address,
+          items: items.map((i) => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price })),
+          total_ngn: totalPrice * USD_TO_NGN,
+          paystack_reference: response?.reference ?? null,
+        });
+
         clearCart();
-        setEmail("");
+        setCustomer({ name: "", email: "", phone: "", address: "" });
         setLoading(false);
         onOpenChange(false);
         navigate("/checkout/success");
@@ -69,6 +92,9 @@ const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
   };
 
   const ngnTotal = (totalPrice * USD_TO_NGN).toLocaleString("en-NG");
+
+  const inputClass =
+    "w-full px-3 py-2.5 text-sm bg-background border-2 border-primary/40 rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground";
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -135,23 +161,37 @@ const CartDrawer = ({ open, onOpenChange }: CartDrawerProps) => {
                 </div>
               </div>
 
-              {/* Email input for Paystack */}
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">Delivery details</p>
+
               <div>
-                <label className="block text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                  Email address <span className="text-primary">*</span>
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="w-full px-3 py-2.5 text-sm bg-background border-2 border-primary/40 rounded focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground"
+                <label className="block text-xs text-muted-foreground mb-1">Full name <span className="text-primary">*</span></label>
+                <input type="text" value={customer.name} onChange={field("name")} placeholder="John Doe" className={inputClass} />
+              </div>
+
+              <div>
+                <label className="block text-xs text-muted-foreground mb-1">Email address <span className="text-primary">*</span></label>
+                <input type="email" value={customer.email} onChange={field("email")} placeholder="your@email.com" className={inputClass} />
+              </div>
+
+              <div>
+                <label className="block text-xs text-muted-foreground mb-1">Phone number <span className="text-primary">*</span></label>
+                <input type="tel" value={customer.phone} onChange={field("phone")} placeholder="+234 800 000 0000" className={inputClass} />
+              </div>
+
+              <div>
+                <label className="block text-xs text-muted-foreground mb-1">Delivery address <span className="text-primary">*</span></label>
+                <textarea
+                  value={customer.address}
+                  onChange={field("address")}
+                  placeholder="Street, City, State"
+                  rows={2}
+                  className={inputClass + " resize-none"}
                 />
               </div>
 
               <Button
                 onClick={handleCheckout}
-                disabled={loading || !email}
+                disabled={loading || !customer.email || !customer.name || !customer.phone || !customer.address}
                 className="w-full uppercase tracking-wider font-semibold"
               >
                 {loading ? (

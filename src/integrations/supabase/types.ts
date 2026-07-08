@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      orders: {
+        Row: {
+          id: string
+          created_at: string
+          name: string
+          email: string
+          phone: string
+          address: string
+          items: Json
+          total_ngn: number
+          paystack_reference: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          name: string
+          email: string
+          phone: string
+          address: string
+          items: Json
+          total_ngn: number
+          paystack_reference?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          name?: string
+          email?: string
+          phone?: string
+          address?: string
+          items?: Json
+          total_ngn?: number
+          paystack_reference?: string | null
+        }
+        Relationships: []
+      }
       email_subscribers: {
         Row: {
           created_at: string
