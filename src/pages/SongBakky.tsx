@@ -29,6 +29,12 @@ const platforms = [
     link: "https://www.youtube.com/watch?v=IU15jZ8V-IY",
   },
   {
+    name: "YouTube Music",
+    logo: "https://cdn.simpleicons.org/youtubemusic/FF0000",
+    bg: "#FF0000",
+    link: "https://music.youtube.com/watch?v=IU15jZ8V-IY&si=1HH59Q5WShAj3KlE",
+  },
+  {
     name: "Audiomack",
     logo: "https://cdn.simpleicons.org/audiomack/FF6600",
     bg: "#FF6600",
