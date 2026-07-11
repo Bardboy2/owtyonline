@@ -27,12 +27,12 @@ const NewSongAlert = () => {
                 <Music className="w-3.5 h-3.5" />
               </span>
               <p className="text-sm font-medium truncate">
-                🔥 New single <span className="font-bold">"Request of a Nigga"</span> is out now!
+                🔥 New single <span className="font-bold">"Bakky"</span> is out now!
               </p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               <button
-                onClick={() => navigate("/roan")}
+                onClick={() => navigate("/bakky")}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-foreground text-primary text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity rounded-sm"
               >
                 Listen
