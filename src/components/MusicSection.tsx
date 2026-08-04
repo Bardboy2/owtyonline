@@ -11,9 +11,11 @@ import coverSeh from "@/assets/cover-seh.jpg";
 import cover17 from "@/assets/cover-17.jpg";
 import coverRoan from "@/assets/cover-roan.jpg";
 import coverBakky from "@/assets/cover-bakky.jpg";
+import coverSpace from "@/assets/cover-space.jpg";
 import StreamingModal from "./StreamingModal";
 
 const tracks = [
+  { title: "Space", album: "Single", year: "2026", link: null, cover: coverSpace, page: "/space" },
   { title: "Bakky", album: "Single", year: "2026", link: null, cover: coverBakky, page: "/bakky" },
   { title: "Request of a Nigga", album: "Single", year: "2026", link: "https://open.spotify.com/album/4SmHJ0gX37z3PuIcKwRGoo?si=CaKKvR6ISmy-0Lv7KDziCw", cover: coverRoan, modal: false },
   { title: "17", album: "Single", year: "2025", link: null, cover: cover17, modal: true },
