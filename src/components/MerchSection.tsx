@@ -34,7 +34,7 @@ const products = [
   },
   {
     id: 3,
-    name: "OWTY Shirt — White",
+    name: "OWTY Shirt — Black",
     price: 37,
     image: "👕",
     photo: null,
@@ -43,7 +43,7 @@ const products = [
   },
   {
     id: 4,
-    name: "OWTY Shirt — Black",
+    name: "OWTY Shirt — White",
     price: 37,
     image: "👕",
     photo: null,
