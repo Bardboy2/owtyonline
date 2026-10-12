@@ -7,6 +7,7 @@ import CartDrawer from "./CartDrawer";
 const links = [
   { label: "Music", href: "#music" },
   { label: "Merch", href: "#merch" },
+  { label: "Diary", href: "/diary" },
   { label: "Connect", href: "#connect" },
 ];
 

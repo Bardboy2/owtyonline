@@ -9,6 +9,7 @@ import Song17 from "./pages/Song17";
 import SongRoan from "./pages/SongRoan";
 import SongBakky from "./pages/SongBakky";
 import SongSpace from "./pages/SongSpace";
+import Diary from "./pages/Diary";
 import SongGhostMode from "./pages/SongGhostMode";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/roan" element={<SongRoan />} />
             <Route path="/bakky" element={<SongBakky />} />
             <Route path="/space" element={<SongSpace />} />
+            <Route path="/diary" element={<Diary />} />
             <Route path="/ghost-mode" element={<SongGhostMode />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
