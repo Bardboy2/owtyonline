@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Youtube } from "lucide-react";
 
 const videos = [
-  { id: "ENjKCdD5XLU" },
-  { id: "2CAeHxDOHGU" },
-  { id: "LNHfBdSN4dk" },
+  { id: "ENjKCdD5XLU", date: "Oct 2026" },
+  { id: "2CAeHxDOHGU", date: "Oct 2026" },
+  { id: "LNHfBdSN4dk", date: "Oct 2026" },
 ];
 
 const Diary = () => {
@@ -40,17 +40,21 @@ const Diary = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="relative w-full overflow-hidden rounded-xl bg-white/5 border border-white/10"
-              style={{ paddingTop: "177.78%" }}
+              className="rounded-xl overflow-hidden bg-white/5 border border-white/10"
             >
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${video.id}`}
-                title={`OWTY video ${i + 1}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <div className="relative w-full" style={{ paddingTop: "177.78%" }}>
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${video.id}`}
+                  title={`OWTY video ${i + 1}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <div className="px-3 py-2">
+                <p className="text-white/30 text-xs uppercase tracking-widest">{video.date}</p>
+              </div>
             </motion.div>
           ))}
         </div>
