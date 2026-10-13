@@ -17,8 +17,8 @@ import coverGhostMode from "@/assets/cover-ghost-mode.jpg";
 import StreamingModal from "./StreamingModal";
 
 const tracks = [
-  { title: "Ghost Mode", album: "Single", year: "2026", link: null, cover: coverGhostMode, page: "/ghost-mode" },
   { title: "Millions", album: "Single", year: "2026", link: null, cover: coverMillions, page: "/millions" },
+  { title: "Ghost Mode", album: "Single", year: "2026", link: null, cover: coverGhostMode, page: "/ghost-mode" },
   { title: "Space", album: "Single", year: "2026", link: null, cover: coverSpace, page: "/space" },
   { title: "Bakky", album: "Single", year: "2026", link: null, cover: coverBakky, page: "/bakky" },
   { title: "Request of a Nigga", album: "Single", year: "2026", link: "https://open.spotify.com/album/4SmHJ0gX37z3PuIcKwRGoo?si=CaKKvR6ISmy-0Lv7KDziCw", cover: coverRoan, modal: false },
