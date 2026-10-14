@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Youtube } from "lucide-react";
 
 const videos = [
+  { id: "MhzO7d1_Swk", date: "Oct 2026" },
   { id: "ENjKCdD5XLU", date: "Oct 2026" },
   { id: "2CAeHxDOHGU", date: "Oct 2026" },
   { id: "LNHfBdSN4dk", date: "Oct 2026" },
