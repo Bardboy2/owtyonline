@@ -8,6 +8,7 @@ const videos = [
   { id: "2CAeHxDOHGU", date: "Oct 2026" },
   { id: "LNHfBdSN4dk", date: "Oct 2026" },
   { id: "dWW8xE17t-w", date: "Oct 11, 2026" },
+  { id: "xQRBRQmEzX4", date: "Oct 21, 2026" },
 ];
 
 const Diary = () => {
