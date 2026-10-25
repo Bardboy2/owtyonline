@@ -5,6 +5,12 @@ import coverMillions from "@/assets/cover-millions.jpg";
 
 const platforms = [
   {
+    name: "Apple Music",
+    logo: "https://cdn.simpleicons.org/applemusic/FC3C44",
+    bg: "#FC3C44",
+    link: "https://music.apple.com/us/album/millions-single/6822003695",
+  },
+  {
     name: "Spotify",
     logo: "https://cdn.simpleicons.org/spotify/1DB954",
     bg: "#1DB954",
