@@ -14,6 +14,7 @@ import SongMillions from "./pages/SongMillions";
 import SongGhostMode from "./pages/SongGhostMode";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
+import ClipEngine from "./pages/ClipEngine";
 import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/ghost-mode" element={<SongGhostMode />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
+            <Route path="/clipengine" element={<ClipEngine />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
