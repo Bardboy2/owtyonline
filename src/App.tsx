@@ -12,6 +12,7 @@ import SongSpace from "./pages/SongSpace";
 import Diary from "./pages/Diary";
 import SongMillions from "./pages/SongMillions";
 import SongGhostMode from "./pages/SongGhostMode";
+import GhostModeChallenge from "./pages/GhostModeChallenge";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import CheckoutCancel from "./pages/CheckoutCancel";
 import ClipEngine from "./pages/ClipEngine";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/diary" element={<Diary />} />
             <Route path="/millions" element={<SongMillions />} />
             <Route path="/ghost-mode" element={<SongGhostMode />} />
+            <Route path="/ghost-mode-challenge" element={<GhostModeChallenge />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
             <Route path="/clipengine" element={<ClipEngine />} />

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mic } from "lucide-react";
 import coverGhostMode from "@/assets/cover-ghost-mode.jpg";
 
 const platforms = [
@@ -92,6 +92,26 @@ const SongGhostMode = () => {
             </motion.a>
           ))}
         </div>
+
+        {/* Challenge banner */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          onClick={() => navigate("/ghost-mode-challenge")}
+          className="mt-6 w-full flex items-center justify-between gap-3 px-5 py-4 bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/60 rounded-xl transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <Mic className="w-4 h-4 text-primary" />
+            </div>
+            <div className="text-left">
+              <p className="text-primary text-xs font-semibold uppercase tracking-widest">Open Challenge</p>
+              <p className="text-white text-sm font-semibold">Ghost Mode Challenge — Drop your verse</p>
+            </div>
+          </div>
+          <span className="text-white/30 group-hover:text-white/60 text-sm transition-colors">→</span>
+        </motion.button>
       </div>
     </div>
   );
