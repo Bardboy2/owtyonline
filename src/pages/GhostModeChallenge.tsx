@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Download, Mic, Share2 } from "lucide-react";
 import coverGhostMode from "@/assets/cover-ghost-mode.jpg";
 
-const BEAT_URL = "https://drive.google.com/uc?export=download&id=1L4pfAyx31CuqY87KnwqtBSmBXCWNN_CR";
-const PREVIEW_URL = "https://drive.google.com/uc?export=view&id=1L4pfAyx31CuqY87KnwqtBSmBXCWNN_CR";
+const BEAT_URL = "/ghost-mode-instrumental.mp3";
+const PREVIEW_URL = "/ghost-mode-instrumental.mp3";
 
 const steps = [
   { icon: <Download className="w-5 h-5" />, title: "Download the beat", desc: "Grab the Ghost Mode instrumental below — free for this challenge." },
