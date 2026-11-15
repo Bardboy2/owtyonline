@@ -12,6 +12,12 @@ import shirtStoneFront from "@/assets/shirt-stone-front.jpg";
 import shirtStoneBack from "@/assets/shirt-stone-back.jpg";
 import capFront from "@/assets/cap-front.jpg";
 import capBack from "@/assets/cap-back.jpg";
+import bodyhugFront from "@/assets/bodyhug-front.jpg";
+import bodyhugBack from "@/assets/bodyhug-back.jpg";
+import stoneArmlessFront from "@/assets/stone-armless-front.jpg";
+import stoneArmlessBack from "@/assets/stone-armless-back.jpg";
+import shineTfront from "@/assets/shine-tee-front.png";
+import shineTback from "@/assets/shine-tee-back.png";
 
 const products = [
   {
@@ -85,6 +91,33 @@ const products = [
     photo: null,
     photos: null,
     description: "Ribbed knit beanie with woven label",
+  },
+  {
+    id: 9,
+    name: "OWTY Bodyhug Tee",
+    price: 24.9,
+    image: "👕",
+    photo: null,
+    photos: { front: bodyhugFront, back: bodyhugBack },
+    description: "Black fitted tee with embroidered OWTY logo",
+  },
+  {
+    id: 10,
+    name: "OWTY Stone Sleeveless",
+    price: 24.9,
+    image: "👕",
+    photo: null,
+    photos: { front: stoneArmlessFront, back: stoneArmlessBack },
+    description: "Stone-wash sleeveless tee with OWTY branding",
+  },
+  {
+    id: 11,
+    name: "OWTY Shine Tee",
+    price: 24.9,
+    image: "👕",
+    photo: null,
+    photos: { front: shineTfront, back: shineTback },
+    description: "Black oversized tee with SHINE graphic print",
   },
 ];
 
