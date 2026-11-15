@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import StreamingModal from "./StreamingModal";
 
 const NewSongAlert = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
