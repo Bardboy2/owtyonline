@@ -24,6 +24,7 @@ const products = [
     id: 1,
     name: "OWTY Cap",
     price: 32,
+    naira: 44999,
     image: "🧢",
     photo: null,
     photos: { front: capFront, back: capBack },
@@ -33,6 +34,7 @@ const products = [
     id: 2,
     name: "OWTY Bag",
     price: 55,
+    naira: 77999,
     image: "🎒",
     photo: null,
     photos: null,
@@ -42,6 +44,7 @@ const products = [
     id: 3,
     name: "OWTY Shirt — Black",
     price: 37,
+    naira: 51999,
     image: "👕",
     photo: null,
     photos: { front: shirtWhiteFront, back: shirtWhiteBack },
@@ -51,6 +54,7 @@ const products = [
     id: 4,
     name: "OWTY Shirt — White",
     price: 37,
+    naira: 51999,
     image: "👕",
     photo: null,
     photos: { front: shirtBlackFront, back: shirtBlackBack },
@@ -60,6 +64,7 @@ const products = [
     id: 5,
     name: "OWTY Shirt — Stonewash Black",
     price: 37,
+    naira: 51999,
     image: "👕",
     photo: null,
     photos: { front: shirtStoneFront, back: shirtStoneBack },
@@ -69,6 +74,7 @@ const products = [
     id: 6,
     name: "OWTY Jeans",
     price: 120,
+    naira: 169999,
     image: "👖",
     photo: null,
     photos: null,
@@ -78,6 +84,7 @@ const products = [
     id: 7,
     name: "OWTY Hoodie",
     price: 85,
+    naira: 119999,
     image: "🧥",
     photo: null,
     photos: null,
@@ -87,6 +94,7 @@ const products = [
     id: 8,
     name: "OWTY Beanie",
     price: 28,
+    naira: 39999,
     image: "🎩",
     photo: null,
     photos: null,
@@ -96,6 +104,7 @@ const products = [
     id: 9,
     name: "Bodyhug Tee",
     price: 24.9,
+    naira: 34999,
     image: "👕",
     photo: null,
     photos: { front: bodyhugFront, back: bodyhugBack },
@@ -105,6 +114,7 @@ const products = [
     id: 10,
     name: "Stonewash Sleeveless",
     price: 24.9,
+    naira: 34999,
     image: "👕",
     photo: null,
     photos: { front: stoneArmlessFront, back: stoneArmlessBack },
@@ -114,6 +124,7 @@ const products = [
     id: 11,
     name: "Black Tee",
     price: 24.9,
+    naira: 34999,
     image: "👕",
     photo: null,
     photos: { front: shineTfront, back: shineTback },
@@ -181,14 +192,14 @@ const MerchSection = () => {
                     <img
                       src={product.photos.front}
                       alt={`${product.name} front`}
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+                      className="absolute inset-0 w-full h-full object-contain transition-opacity duration-500"
                       style={{ opacity: isFlipped(product.id) ? 0 : 1 }}
                     />
                     {/* Back image */}
                     <img
                       src={product.photos.back}
                       alt={`${product.name} back`}
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+                      className="absolute inset-0 w-full h-full object-contain transition-opacity duration-500"
                       style={{ opacity: isFlipped(product.id) ? 1 : 0 }}
                     />
                     {/* Front / Back label */}
@@ -204,7 +215,7 @@ const MerchSection = () => {
                   <img
                     src={product.photo}
                     alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                   />
                 ) : (
                   <span className="text-7xl transition-transform duration-500 group-hover:scale-110">
@@ -226,7 +237,10 @@ const MerchSection = () => {
                   <h3 className="text-lg font-bold text-foreground uppercase tracking-wider">
                     {product.name}
                   </h3>
-                  <span className="text-primary font-bold text-lg">${product.price}</span>
+                  <div className="text-right">
+                    <div className="text-primary font-bold text-lg">₦{product.naira.toLocaleString()}</div>
+                    <div className="text-muted-foreground text-xs">${product.price}</div>
+                  </div>
                 </div>
                 <p className="text-muted-foreground text-sm mb-4">{product.description}</p>
                 <button
