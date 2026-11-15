@@ -94,7 +94,7 @@ const products = [
   },
   {
     id: 9,
-    name: "OWTY Bodyhug Tee",
+    name: "Bodyhug Tee",
     price: 24.9,
     image: "👕",
     photo: null,
@@ -103,7 +103,7 @@ const products = [
   },
   {
     id: 10,
-    name: "OWTY Stone Sleeveless",
+    name: "Stonewash Sleeveless",
     price: 24.9,
     image: "👕",
     photo: null,
@@ -112,7 +112,7 @@ const products = [
   },
   {
     id: 11,
-    name: "OWTY Shine Tee",
+    name: "Black Tee",
     price: 24.9,
     image: "👕",
     photo: null,
